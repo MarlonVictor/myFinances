@@ -1,0 +1,31 @@
+:root {
+    --shape: #FFF;
+    --background: #FAFAFC;
+
+    --red: #E52E4D;
+    --gray: #585666;
+    --green: #33CC95;
+    --orange: #FF941A;
+    
+    --text-body: #706E7A;   
+    --text-title: #585666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, input, textarea, button {
+    font: 400 16px 'Inter', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
