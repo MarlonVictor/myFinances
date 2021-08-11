@@ -1,0 +1,48 @@
+.headerContainer {
+    color: #FFF;
+    background: var(--gradient);
+
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 10rem;
+
+        main {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 4rem;
+                border-radius: 1rem;
+            }
+
+            p, strong {
+                padding-left: 1rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        button {
+            border: 0;
+            background: transparent;
+
+            transition: color 0.3s;
+
+            img {
+                width: 1.7rem;
+            }
+            
+            &:hover {
+                filter: brightness(0.9);
+            }
+
+            &:first-child {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
