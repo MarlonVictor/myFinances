@@ -1,0 +1,46 @@
+.TableContainer {
+    margin: 4rem auto;
+
+    table {
+        width: 100%;
+        border-spacing: 0 0.5rem;
+
+        svg {
+            transform: translateY(2px);
+            margin-right: 5px;
+        }
+
+        th {
+            padding: 1rem 2rem;
+
+            font-weight: 400;
+            text-align: left;
+            line-height: 1.5rem;
+            color: var(--text-body);
+
+        }
+
+        td {
+            padding: 1rem 2rem;
+
+            border: 0;
+            border-radius: 0.25rem;
+
+            background: var(--card);
+            color: var(--text-body);
+
+            &:first-child {
+                color: var(--text-title);
+                width: 50%;
+            }
+            
+            &.deposit {
+                color: var(--green);
+            }
+
+            &.withdraw {
+                color: var(--red);
+            }
+        }
+    }
+}

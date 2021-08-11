@@ -1,0 +1,45 @@
+.FooterContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    background: var(--card);
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.06);
+
+    div {
+        display: flex;
+        align-items: center;
+
+        margin: 0 auto;
+        max-width: 1120px;
+        padding: 1.5rem 1rem;
+
+        span {
+            flex: 1;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            color: var(--text-body);
+            font: 500 1.2rem 'Lexend', sans-serif;
+
+            cursor: pointer;
+
+            svg {
+                font-size: 1.5rem;
+            }
+
+            
+            &.selected {
+                color: var(--text-title);
+
+                svg {
+                    color: var(--orange);
+                }
+            }
+        }
+    }
+}
