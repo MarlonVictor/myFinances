@@ -5,24 +5,24 @@ import styles from './styles.module.scss'
 
 
 type FooterProps = {
-    dashOpen: boolean,
+    showDashboard: boolean,
     setContent: (value: boolean) => void
 }
 
-export function Footer({ dashOpen, setContent }: FooterProps) {
+export function Footer({ showDashboard, setContent }: FooterProps) {
     return (
         <footer className={styles.FooterContainer}>
             <div>
                 <span 
                     onClick={() => setContent(true)}
-                    className={dashOpen ? styles.selected : ''}
+                    className={showDashboard ? styles.selected : ''}
                 >
                     <BiListUl />
                     Listagem
                 </span>
                 <span 
                     onClick={() => setContent(false)}
-                    className={!dashOpen ? styles.selected : ''}
+                    className={!showDashboard ? styles.selected : ''}
                 >
                     <BiDollar />
                     Cadastrar

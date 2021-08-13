@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 
 export function TransactionsTable() {
     return (
-        <main className={styles.TableContainer}>
+        <section className={styles.TableContainer}>
             <table>
                 <thead>
                     <tr>
@@ -35,6 +35,6 @@ export function TransactionsTable() {
                     </tr>
                 </tbody>
             </table>
-        </main>
+        </section>
     )
 }

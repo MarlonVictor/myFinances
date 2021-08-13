@@ -1,0 +1,90 @@
+.NewTransactionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    max-width: 798px;
+    margin: -6.5rem auto 0;
+    padding: 2rem;
+
+    background: var(--card);
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    h2 {
+        position: relative;
+        padding-bottom: 2rem;
+
+        text-align: center;
+        font-size: 1.8rem;
+        color: var(--gray);
+    }
+
+    input, select {
+        padding: 1rem;
+
+        border: 1px solid #DDD;
+        border-radius: 0.25rem;
+
+        font-size: 1rem;
+        color: var(--text-body);
+
+        &::placeholder {
+            color: var(--text-body);
+        }
+    }
+
+    fieldset {
+        display: flex;
+        gap: 0.5rem;
+
+        border: 0;
+
+        button {
+            flex: 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            padding: 1rem;
+
+            border: 1px solid #DDD;
+            background: var(--background);
+            transition: filter 0.3s;
+
+            img { 
+                width: 1.5rem;
+            }
+
+            &:hover {
+                filter: brightness(0.95);
+            }
+
+            &.checkedButton {
+                border-color: var(--orange);
+                background: var(--card);
+            }
+        }
+    }
+
+    .sendButton {
+        width: 21rem;
+        padding: 1rem;
+        margin: 1.5rem auto 0;
+
+        color: #FFF;
+        background: var(--orange);
+
+        border: 0;
+        border-radius: 0.25rem;
+
+        cursor: pointer;
+        transition: filter 0.3s;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+}
