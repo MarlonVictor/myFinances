@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^8.9.1",
     "framer-motion": "^4.1.17",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",

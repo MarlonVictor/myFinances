@@ -1,12 +1,16 @@
 import React from 'react'
 import Routes from './routes'
 
+import { AuthContextProvider } from './contexts/AuthContext'
+
 import './styles/global.scss'
 
 
 function App() {
     return (
-        <Routes />
+        <AuthContextProvider>
+            <Routes />
+        </AuthContextProvider>
     )
 }
 
