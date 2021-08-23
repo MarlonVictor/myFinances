@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useContext, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useHistory } from 'react-router-dom'
+
+import { AuthContext } from '../../contexts/AuthContext'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
@@ -8,11 +11,24 @@ import { NewTransaction } from '../../components/NewTransaction'
 
 
 export function Home() {
+    const history = useHistory()
+    const { user, signOut } = useContext(AuthContext)
+
     const [showDashboard, setShowDashboard] = useState(true)
 
+    useEffect(() => {
+        if (!user) {
+            history.push('/')
+        }
+    }, [user])
+
     return (
-        <AnimatePresence>
-            <Header />
+        <>
+            <Header 
+                userName={user?.name}
+                userImage={user?.avatar}
+                signOut={signOut}
+            />
 
             {showDashboard
                 ? (
@@ -41,6 +57,6 @@ export function Home() {
                 showDashboard={showDashboard}
                 setContent={setShowDashboard}
             />
-        </AnimatePresence>
+        </>
     )
 }

@@ -7,24 +7,28 @@ import PowerIcon from '../../assets/power.svg'
 import styles from './styles.module.scss'
 
 
-export function Header() {
+type HeaderProps = {
+    userName: string | undefined
+    userImage: string | undefined | null
+    signOut: () => Promise<void>
+}
+
+export function Header({ userName, userImage, signOut }: HeaderProps) {
+    const defaultImage = 'https://user-images.githubusercontent.com/62356988/130330350-5ee94f12-1509-4b50-b876-4f0aa5e30a1a.jpg'
+
     function handleHide() {
         console.log('Hide')
-    }
-
-    function handleLogout() {
-        console.log('Sair')
     }
 
     return (
         <header className={styles.headerContainer}>
             <div>
                 <main>
-                    <img src="https://avatars.githubusercontent.com/u/62356988?v=4" alt="myFinances" />
+                    <img src={userImage || defaultImage} alt="myFinances" />
                     
                     <span>
                         <p>Olá,</p>
-                        <strong>Marlon</strong>
+                        <strong>{userName}</strong>
                     </span>
                 </main>
 
@@ -39,7 +43,7 @@ export function Header() {
 
                     <button
                         type="button"
-                        onClick={handleLogout}
+                        onClick={signOut}
                         data-tip="Sair"
                     >
                         <img src={PowerIcon} alt="Sair" />
