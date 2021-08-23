@@ -4,6 +4,13 @@
 
     background: var(--gradient);
 
+    overflow: hidden;
+
+    @media(max-width: 768px) {
+        flex-direction: column-reverse;
+        height: auto;
+    }
+
     main {
         display: flex;
         flex-direction: column;
@@ -15,8 +22,25 @@
 
         background: var(--card);
 
+        @media(max-width: 1024px) {
+            width: 30rem;
+            padding-right: 3.5rem;
+        }
+
+        @media(max-width: 768px) {
+            width: 100%;
+        }
+
+        @media(max-width: 420px) {
+            padding: 2rem;
+        }
+
         .financesLogo {
             width: 15rem;
+
+            @media(max-width: 768px) {
+                margin-bottom: 2rem;
+            }
         }
 
         div {
@@ -37,6 +61,14 @@
     > img {
         margin: 0 auto;
         padding-top: 4rem;
+
+        @media(max-width: 768px) {
+            padding-top: 1rem;
+        }
+
+        @media(max-width: 425px) {
+            width: 12rem;
+        }
     }
 }
 
@@ -51,6 +83,10 @@
     background: var(--card);
 
     transition: filter 0.3s;
+
+    @media(max-width: 768px) {
+        margin-top: 4rem;
+    }
 
     &:hover {
         filter: brightness(0.95);

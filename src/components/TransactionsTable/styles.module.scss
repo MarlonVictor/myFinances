@@ -1,6 +1,10 @@
 .TableContainer {
     margin: 4rem auto;
 
+    @media(max-width: 768px) {
+        display: none;
+    }
+
     table {
         width: 100%;
         border-spacing: 0 0.5rem;
@@ -18,6 +22,9 @@
             line-height: 1.5rem;
             color: var(--text-body);
 
+            &:nth-child(3) {
+                min-width: 160px;
+            }
         }
 
         td {
@@ -40,6 +47,71 @@
 
             &.withdraw {
                 color: var(--red);
+            }
+        }
+    }
+}
+
+.MobileListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    margin: 4rem auto;
+
+    @media(min-width: 769px) {
+        display: none;
+    }
+
+    h2 {
+        padding-bottom: 1rem;
+
+        font-size: 1.5rem;
+        color: var(--text-title);
+    }
+
+    div {
+        padding: 1.5rem 2rem;
+
+        background: var(--card);
+        color: var(--text-title);
+
+        border-radius: 0.25rem;
+
+        main {
+            p {
+                font-size: 1.2rem;
+                color: var(--text-title);
+            }
+
+            span {
+                display: block;
+                padding: 0.5rem 0 1.2rem;
+
+                font-size: 1.5rem;
+
+                &.deposit {
+                    color: var(--green);
+                }
+    
+                &.withdraw {
+                    color: var(--red);
+                }
+            }
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+
+            color: var(--text-body);
+
+            span {
+                font-size: 1.2rem;
+
+                svg {
+                    margin-bottom: -2px;
+                }
             }
         }
     }

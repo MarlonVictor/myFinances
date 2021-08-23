@@ -3,7 +3,17 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 
+    position: relative;
     margin-top: -9rem;
+    
+    @media(max-width: 768px) {
+        overflow-x: auto;
+        
+        div {
+            width: 260px;
+            margin-bottom: 0.5rem;
+        }
+    }
 
     div {
         padding: 1.5rem 2rem;

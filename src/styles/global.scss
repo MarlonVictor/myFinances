@@ -13,6 +13,18 @@
     --gradient: radial-gradient(circle, rgba(250,163,65,1) 0%, rgba(255,148,26,1) 100%);
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    transition: .3s;
+}
+::-webkit-scrollbar-thumb {
+    background: #E6E8EB;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 * {
     margin: 0;
     padding: 0;
