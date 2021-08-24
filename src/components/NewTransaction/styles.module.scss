@@ -59,14 +59,25 @@
             }
 
             &:hover {
-                filter: brightness(0.95);
-            }
-
-            &.checkedButton {
-                border-color: var(--orange);
-                background: var(--card);
+                filter: brightness(0.98);
             }
         }
+    }
+
+    small {
+        margin: -0.4rem 0 0.4rem;
+
+        color: var(--red);
+        font: 400 0.85rem 'Lexend', sans-serif;
+    }
+
+    .inputError {
+        border-color: var(--red);
+    }
+
+    .checkedButton {
+        border-color: var(--orange);
+        background: var(--card);
     }
 
     .sendButton {
