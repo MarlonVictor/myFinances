@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Field, Formik, Form } from 'formik'
 import { ptForm } from 'yup-locale-pt'
 import * as Yup from 'yup'
+
+import { database } from '../../services/firebase'
+import { AuthContext } from '../../contexts/AuthContext'
 
 import IncomeIcon from '../../assets/income.svg'
 import OutcomeIcon from '../../assets/outcome.svg'
@@ -9,30 +12,33 @@ import OutcomeIcon from '../../assets/outcome.svg'
 import styles from './styles.module.scss'
 
 
-type SubmitFormProps = {
+type handleCreateNewTransactionProps = {
     name: string,
     price: string,
     category: string
 }
 
 export function NewTransaction() {
+    Yup.setLocale(ptForm)
+    const { user } = useContext(AuthContext)
+
     const [transactionType, setTransactionType] = useState('income')
     
-    Yup.setLocale(ptForm)
-
     const schema = Yup.object().shape({
         name: Yup.string().required(),
         price: Yup.number().integer().required(),
         category: Yup.string().default('').required()
     })
 
-    function submitForm(values: SubmitFormProps) {
-        const formValue = {
+    function handleCreateNewTransaction(values: handleCreateNewTransactionProps, { resetForm }: any) {
+        const transactionsRef = database.ref(`users/${user?.id}/transactions`)
+
+        transactionsRef.push({
             ...values,
             transactionType
-        }
+        })
 
-        console.log(formValue)
+        resetForm()
     }
 
     return (
@@ -42,9 +48,10 @@ export function NewTransaction() {
                 price: '',
                 category:''
             }}
-            onSubmit={submitForm}
+            onSubmit={handleCreateNewTransaction}
             validationSchema={schema}
-            render={({ errors }) => (
+        >
+            {({ errors }) => (
                 <Form className={styles.NewTransactionContainer}>
                     <h2>Novo cadastro</h2>
 
@@ -58,7 +65,7 @@ export function NewTransaction() {
 
                     <Field 
                         name="price" 
-                        type="text" 
+                        type="number" 
                         placeholder="Valor" 
                         className={errors.price ? styles.inputError : ''}
                     />
@@ -108,6 +115,6 @@ export function NewTransaction() {
                     </button>
                 </Form>
             )}
-        />
+        </Formik>
     )
 }

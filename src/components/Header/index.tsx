@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
+import { useHistory } from 'react-router-dom'
 
 import EyeIcon from '../../assets/eye.svg'
 import PowerIcon from '../../assets/power.svg'
@@ -14,10 +15,16 @@ type HeaderProps = {
 }
 
 export function Header({ userName, userImage, signOut }: HeaderProps) {
+    const history = useHistory()
     const defaultImage = 'https://user-images.githubusercontent.com/62356988/130330350-5ee94f12-1509-4b50-b876-4f0aa5e30a1a.jpg'
 
     function handleHide() {
         console.log('Hide')
+    }
+
+    async function handleSignOut() {
+        await signOut()
+        history.push('/')
     }
 
     return (
@@ -43,7 +50,7 @@ export function Header({ userName, userImage, signOut }: HeaderProps) {
 
                     <button
                         type="button"
-                        onClick={signOut}
+                        onClick={handleSignOut}
                         data-tip="Sair"
                     >
                         <img src={PowerIcon} alt="Sair" />
