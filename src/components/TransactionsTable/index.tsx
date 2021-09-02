@@ -1,67 +1,94 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
-import { IoShirtOutline } from 'react-icons/io5'
-import { BiDollar } from 'react-icons/bi'
+
+import { useUser } from '../../hooks/useUser'
+import { AuthContext } from '../../contexts/AuthContext'
 
 import styles from './styles.module.scss'
 
 
 export function TransactionsTable() {
+    const { user } = useContext(AuthContext)
+    const { transactions } = useUser(user?.id)
+
     return (
         <>
-            <section className={styles.TableContainer}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Título <IoIosArrowDown/></th>
-                            <th>Valor <IoIosArrowDown/></th>
-                            <th>Categoria <IoIosArrowDown/></th>
-                            <th>Data <IoIosArrowDown/></th>
-                        </tr>
-                    </thead>
-                    
+            {transactions.length > 0
+                ? (
+                    <>
+                        <section className={styles.TableContainer}>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Título <IoIosArrowDown/></th>
+                                        <th>Valor <IoIosArrowDown/></th>
+                                        <th>Categoria <IoIosArrowDown/></th>
+                                        <th>Data <IoIosArrowDown/></th>
+                                    </tr>
+                                </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>Desenvolvimento de site</td>
-                            <td className={styles.deposit}>R$1.000,00</td>
-                            <td><BiDollar /> Venda</td>
-                            <td>10/08/2021</td>
-                        </tr>
-                        <tr>
-                            <td>t-shirt</td>
-                            <td className={styles.withdraw}>- R$100,00</td>
-                            <td><IoShirtOutline /> Roupa</td>
-                            <td>10/08/2021</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+                                <tbody>
+                                    {transactions.slice(0).reverse().map(transaction => {
+                                        return (
+                                            <tr key={transaction.id}>
+                                                <td>{transaction.name}</td>
+                                                <td 
+                                                    className={
+                                                        transaction.transactionType == 'income' 
+                                                            ? styles.deposit 
+                                                            : styles.withdraw
+                                                    }
+                                                >
+                                                    {transaction.price}
+                                                </td>
+                                                <td>
+                                                    {transaction.category}
+                                                </td>
+                                                <td>10/08/2021</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </section>
 
-            <section className={styles.MobileListContainer}>
-                <h2>Listagem</h2>
+                        <section className={styles.MobileListContainer}>
+                            <h2>Listagem</h2>
 
-                <div>
-                    <main>
-                        <p>Desenvolvimento de site</p>
-                        <span className={styles.deposit}>R$1.000,00</span>
-                    </main>
-                    <footer>
-                        <span><BiDollar /> Venda</span>
-                        <span>10/08/2021</span>
-                    </footer>
-                </div>
-                <div>
-                    <main>
-                        <p>t-shirt</p>
-                        <span className={styles.withdraw}>- R$100,00</span>
-                    </main>
-                    <footer>
-                        <span><IoShirtOutline /> Roupa</span>
-                        <span>10/08/2021</span>
-                    </footer>
-                </div>
-            </section>
+                            {transactions.slice(0).reverse().map(transaction => {
+                                return (
+                                    <div key={transaction.id}>
+                                        <main>
+                                            <p>{transaction.name}</p>
+                                            <span
+                                                className={
+                                                    transaction.transactionType == 'income' 
+                                                        ? styles.deposit 
+                                                        : styles.withdraw
+                                                }
+                                            >
+                                                {transaction.price}
+                                            </span>
+                                        </main>
+                                        <footer>
+                                            <span>
+                                                {transaction.category}
+                                            </span>
+                                            <span>10/08/2021</span>
+                                        </footer>
+                                    </div>
+                                )
+                            })}
+                        </section>
+                    </>
+                )
+                : (
+                    <section className={styles.NoTransactions}>
+                        <h1>Sem Transações</h1>
+                    </section>
+                )
+            }
         </>
     )
 }
+

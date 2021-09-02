@@ -97,13 +97,26 @@ export function NewTransaction() {
                         className={errors.category ? styles.inputError : ''}
                     >
                         <option hidden>Categorias</option>
-                        <option value="style">Moda</option>
-                        <option value="object">Objeto</option>
-                        <option value="electronics">Eletrônico</option>
-                        <option value="car">Auto</option>
-                        <option value="properties">Imóvel</option>
-                        <option value="hobby">Hobby</option>
-                        <option value="travel">Viagem</option>
+                        {transactionType === 'outcome'
+                            ? (
+                                <>
+                                    <option value="Moda">Moda</option>
+                                    <option value="Objeto">Objeto</option>
+                                    <option value="Eletrônico">Eletrônico</option>
+                                    <option value="Auto">Auto</option>
+                                    <option value="Imóvel">Imóvel</option>
+                                    <option value="Hobby">Hobby</option>
+                                    <option value="Viagem">Viagem</option>
+                                    <option value="Compras">Compras</option>
+                                </>
+                            ) : (
+                                <>
+                                    <option value="Vendas">Vendas</option>
+                                    <option value="Trabalho">Trabalho</option>
+                                    <option value="Presente">Presente</option>
+                                </>
+                            )
+                        }
                     </Field>
                     <small>{errors.category}</small>
 

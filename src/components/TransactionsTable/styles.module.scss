@@ -116,3 +116,16 @@
         }
     }
 }
+
+.NoTransactions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 50vh;
+
+    h1 {
+        font-size: 2rem;
+        color: var(--text-body);
+    }
+}
