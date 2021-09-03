@@ -30,6 +30,7 @@ export function NewTransaction() {
         category: Yup.string().default('').required()
     })
 
+    // eslint-disable-next-line
     function handleCreateNewTransaction(values: handleCreateNewTransactionProps, { resetForm }: any) {
         const transactionsRef = database.ref(`users/${user?.id}/transactions`)
 

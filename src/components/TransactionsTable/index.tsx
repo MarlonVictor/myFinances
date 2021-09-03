@@ -4,6 +4,8 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { useUser } from '../../hooks/useUser'
 import { AuthContext } from '../../contexts/AuthContext'
 
+import { transactionCategoryIcon } from '../../utils/transactionCategoryIcon'
+
 import styles from './styles.module.scss'
 
 
@@ -42,6 +44,7 @@ export function TransactionsTable() {
                                                     {transaction.price}
                                                 </td>
                                                 <td>
+                                                    {transactionCategoryIcon(transaction.category)}
                                                     {transaction.category}
                                                 </td>
                                                 <td>10/08/2021</td>
@@ -72,6 +75,7 @@ export function TransactionsTable() {
                                         </main>
                                         <footer>
                                             <span>
+                                                {transactionCategoryIcon(transaction.category)}
                                                 {transaction.category}
                                             </span>
                                             <span>10/08/2021</span>
