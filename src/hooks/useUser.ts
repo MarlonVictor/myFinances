@@ -13,7 +13,7 @@ type FirebaseTransactions = Record<string, {
 type TransactionType = {
     id: string
     name: string
-    price: string
+    price: number
     category: string
     transactionType: string
 }
@@ -29,12 +29,10 @@ export function useUser(userId: string | undefined) {
             const firebaseTransactions: FirebaseTransactions = databaseUser ? databaseUser.transactions : {}
 
             const parsedTransactions = Object.entries(firebaseTransactions).map(([ key, value ]) => {
-                const verifyType = value.transactionType === 'outcome' ? '- ' : ''
-
                 return {
                     id: key,
                     name: value.name,
-                    price: verifyType + new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value.price)),
+                    price: Number(value.price),
                     category: value.category,
                     transactionType: value.transactionType
                 }

@@ -41,7 +41,11 @@ export function TransactionsTable() {
                                                             : styles.withdraw
                                                     }
                                                 >
-                                                    {transaction.price}
+                                                    {transaction.transactionType === 'outcome' ? '- ' : ''}
+                                                    {new Intl.NumberFormat('pt-BR', {
+                                                        style: 'currency',
+                                                        currency: 'BRL'
+                                                    }).format(transaction.price)}
                                                 </td>
                                                 <td>
                                                     {transactionCategoryIcon(transaction.category)}
@@ -70,7 +74,11 @@ export function TransactionsTable() {
                                                         : styles.withdraw
                                                 }
                                             >
-                                                {transaction.price}
+                                                {transaction.transactionType === 'outcome' ? '- ' : ''}
+                                                {new Intl.NumberFormat('pt-BR', {
+                                                    style: 'currency',
+                                                    currency: 'BRL'
+                                                }).format(transaction.price)}
                                             </span>
                                         </main>
                                         <footer>
