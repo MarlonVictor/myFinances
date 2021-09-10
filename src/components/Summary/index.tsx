@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { useUser } from '../../hooks/useUser'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -14,8 +14,17 @@ export function Summary() {
     const { user } = useContext(AuthContext)
     const { transactions } = useUser(user?.id)
 
+    const [lastIncome, setLastIncome] = useState('')
+    const [lastOutcome, setLastOutcome] = useState('')
+
+    useEffect(() => {
+        transactions.map(transaction => {
+            transaction.type === 'income' ? setLastIncome(transaction.createdAt) : setLastOutcome(transaction.createdAt)
+        })
+    }, [transactions])
+
     const summary = transactions.reduce((acc, transaction) => {
-        if (transaction.transactionType === 'income') {
+        if (transaction.type === 'income') {
             acc.deposits += transaction.price
             acc.total += transaction.price
 
@@ -34,7 +43,7 @@ export function Summary() {
     return (
         <div className={styles.SummaryContainer}>
             <div>
-                <header onClick={() => console.log(summary)}>
+                <header>
                     <p>Entradas</p>
                     <img src={IncomeIcon} alt="Entradas" />
                 </header>
@@ -44,6 +53,16 @@ export function Summary() {
                         currency: 'BRL'
                     }).format(summary.deposits)}
                 </strong>
+                {lastIncome && (
+                    <small>
+                        Última entrada dia
+                        <em>
+                            {new Intl.DateTimeFormat('pt-BR').format(
+                                new Date(lastIncome)
+                            )}
+                        </em>
+                    </small>
+                )}
             </div>
             <div>
                 <header>
@@ -56,6 +75,16 @@ export function Summary() {
                         currency: 'BRL'
                     }).format(summary.withdraws)}
                 </strong>
+                {lastOutcome && (
+                    <small>
+                        Última saída dia
+                        <em>
+                            {new Intl.DateTimeFormat('pt-BR').format(
+                                new Date(lastOutcome)
+                            )}
+                        </em>
+                    </small>
+                )}
             </div>
             <div>
                 <header>

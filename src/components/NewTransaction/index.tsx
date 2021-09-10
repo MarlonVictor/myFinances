@@ -33,10 +33,12 @@ export function NewTransaction() {
     // eslint-disable-next-line
     function handleCreateNewTransaction(values: handleCreateNewTransactionProps, { resetForm }: any) {
         const transactionsRef = database.ref(`users/${user?.id}/transactions`)
+        const currentDate = new Date()
 
         transactionsRef.push({
             ...values,
-            transactionType
+            type: transactionType,
+            createdAt: currentDate.toString()
         })
 
         resetForm()

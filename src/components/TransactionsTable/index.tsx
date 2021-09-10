@@ -36,12 +36,12 @@ export function TransactionsTable() {
                                                 <td>{transaction.name}</td>
                                                 <td 
                                                     className={
-                                                        transaction.transactionType == 'income' 
+                                                        transaction.type == 'income' 
                                                             ? styles.deposit 
                                                             : styles.withdraw
                                                     }
                                                 >
-                                                    {transaction.transactionType === 'outcome' ? '- ' : ''}
+                                                    {transaction.type === 'outcome' ? '- ' : ''}
                                                     {new Intl.NumberFormat('pt-BR', {
                                                         style: 'currency',
                                                         currency: 'BRL'
@@ -51,7 +51,11 @@ export function TransactionsTable() {
                                                     {transactionCategoryIcon(transaction.category)}
                                                     {transaction.category}
                                                 </td>
-                                                <td>10/08/2021</td>
+                                                <td>
+                                                    {new Intl.DateTimeFormat('pt-BR').format(
+                                                        new Date(transaction.createdAt)
+                                                    )}
+                                                </td>
                                             </tr>
                                         )
                                     })}
@@ -69,12 +73,12 @@ export function TransactionsTable() {
                                             <p>{transaction.name}</p>
                                             <span
                                                 className={
-                                                    transaction.transactionType == 'income' 
+                                                    transaction.type == 'income' 
                                                         ? styles.deposit 
                                                         : styles.withdraw
                                                 }
                                             >
-                                                {transaction.transactionType === 'outcome' ? '- ' : ''}
+                                                {transaction.type === 'outcome' ? '- ' : ''}
                                                 {new Intl.NumberFormat('pt-BR', {
                                                     style: 'currency',
                                                     currency: 'BRL'
@@ -86,7 +90,11 @@ export function TransactionsTable() {
                                                 {transactionCategoryIcon(transaction.category)}
                                                 {transaction.category}
                                             </span>
-                                            <span>10/08/2021</span>
+                                            <span>
+                                                {new Intl.DateTimeFormat('pt-BR').format(
+                                                    new Date(transaction.createdAt)
+                                                )}
+                                            </span>
                                         </footer>
                                     </div>
                                 )

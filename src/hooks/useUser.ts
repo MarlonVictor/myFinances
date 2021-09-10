@@ -5,17 +5,19 @@ import { database } from '../services/firebase'
 
 type FirebaseTransactions = Record<string, {
     name: string
+    type: string
     price: string
     category: string
-    transactionType: string
+    createdAt: string
 }>
 
 type TransactionType = {
     id: string
     name: string
+    type: string
     price: number
     category: string
-    transactionType: string
+    createdAt: string
 }
 
 export function useUser(userId: string | undefined) {
@@ -32,9 +34,10 @@ export function useUser(userId: string | undefined) {
                 return {
                     id: key,
                     name: value.name,
+                    type: value.type,
                     price: Number(value.price),
                     category: value.category,
-                    transactionType: value.transactionType
+                    createdAt: value.createdAt
                 }
             })
 
