@@ -10,8 +10,10 @@ type UserProps = {
 
 type AuthContextData = {
     user: UserProps | undefined
+    showSummary: boolean
     signInWithGoogle: () => Promise<void>
     signOut: () => Promise<void>
+    handleShowSummary: () => void
 }
 
 type AuthContextProviderProps = {
@@ -22,6 +24,7 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<UserProps>()
+    const [showSummary, setShowSummary] = useState(true)
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -69,12 +72,18 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         setUser(undefined)
     }
 
+    function handleShowSummary() {
+        setShowSummary(!showSummary)
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 user,
+                showSummary,
                 signInWithGoogle,
-                signOut
+                signOut,
+                handleShowSummary
             }}
         >
             {children}

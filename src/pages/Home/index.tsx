@@ -12,7 +12,7 @@ import { NewTransaction } from '../../components/NewTransaction'
 
 export function Home() {
     const history = useHistory()
-    const { user, signOut } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     const [showDashboard, setShowDashboard] = useState(true)
 
@@ -24,11 +24,7 @@ export function Home() {
 
     return (
         <>
-            <Header 
-                userName={user?.name}
-                userImage={user?.avatar}
-                signOut={signOut}
-            />
+            <Header />
 
             {showDashboard
                 ? (

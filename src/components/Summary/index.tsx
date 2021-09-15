@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import { useUser } from '../../hooks/useUser'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -11,7 +12,7 @@ import styles from './styles.module.scss'
 
 
 export function Summary() {
-    const { user } = useContext(AuthContext)
+    const { user, showSummary } = useContext(AuthContext)
     const { transactions } = useUser(user?.id)
 
     const [lastIncome, setLastIncome] = useState('')
@@ -40,6 +41,14 @@ export function Summary() {
         total: 0
     })
 
+    function SkeletonComponent() {
+        return (
+            <blockquote style={{ marginTop: '10px' }}>
+                <Skeleton height={54} />
+            </blockquote>
+        )
+    }
+
     return (
         <div className={styles.SummaryContainer}>
             <div>
@@ -47,56 +56,75 @@ export function Summary() {
                     <p>Entradas</p>
                     <img src={IncomeIcon} alt="Entradas" />
                 </header>
-                <strong>
-                    {new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }).format(summary.deposits)}
-                </strong>
-                {lastIncome && (
-                    <small>
-                        Última entrada dia
-                        <em>
-                            {new Intl.DateTimeFormat('pt-BR').format(
-                                new Date(lastIncome)
+                {showSummary
+                    ? (
+                        <>
+                            <strong>
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(summary.deposits)}
+                            </strong>
+                            {lastIncome && (
+                                <small>
+                                    Última entrada dia
+                                    <em>
+                                        {new Intl.DateTimeFormat('pt-BR').format(
+                                            new Date(lastIncome)
+                                        )}
+                                    </em>
+                                </small>
                             )}
-                        </em>
-                    </small>
-                )}
+                        </>
+                    ) 
+                    : <SkeletonComponent />
+                }
             </div>
             <div>
                 <header>
                     <p>Saídas</p>
                     <img src={OutcomeIcon} alt="Saídas" />
                 </header>
-                <strong>
-                    {new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }).format(summary.withdraws)}
-                </strong>
-                {lastOutcome && (
-                    <small>
-                        Última saída dia
-                        <em>
-                            {new Intl.DateTimeFormat('pt-BR').format(
-                                new Date(lastOutcome)
+                {showSummary
+                    ? (
+                        <>
+                            <strong>
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(summary.withdraws)}
+                            </strong>
+                            {lastOutcome && (
+                                <small>
+                                    Última saída dia
+                                    <em>
+                                        {new Intl.DateTimeFormat('pt-BR').format(
+                                            new Date(lastOutcome)
+                                        )}
+                                    </em>
+                                </small>
                             )}
-                        </em>
-                    </small>
-                )}
+                        </>
+                    )
+                    : <SkeletonComponent />
+                }
             </div>
             <div>
                 <header>
                     <p>Total</p>
                     <img src={TotalIcon} alt="Total" />
                 </header>
-                <strong>
-                    {new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL'
-                    }).format(summary.total)}
-                </strong>
+                {showSummary
+                    ? (
+                        <strong>
+                            {new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            }).format(summary.total)}
+                        </strong>
+                    )
+                    : ''
+                }
             </div>
         </div>
     )
