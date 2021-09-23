@@ -1,0 +1,80 @@
+.NotFoundContainer {
+    header {
+        margin-top: 30px;
+
+        h1 {
+            margin: 0;
+
+            font-size: 9em;
+            color: #E7E7E9;
+            text-align: center;
+            text-shadow: -1px 0 #BFC0C0, 0 1px #BFC0C0, 1px 0 #BFC0C0, 0 -1px #BFC0C0;
+        }
+
+        h3 {
+            margin-top: -20px;
+
+            font-size: 2em;
+            font-weight: 900;
+            color: #BFC0C0;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+
+    footer {
+        margin-top: 260px;
+
+        p {
+            margin: -10px auto 10px;
+            max-width: 250px;
+
+            font-size: .6em;
+            color: #89858B;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 10px;
+
+            button {
+                padding: 15px 20px;
+                margin: 5px;
+                
+                font-size: .6em;
+                color: #89858B;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                background: #E7E7E9;
+                border: 0;
+                cursor: pointer;
+
+                &:hover {
+                    background: #BFC0C0;
+                    transition: all .4s ease-out;
+                }
+            }
+        }
+    }
+    @keyframes scale {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    @keyframes float {
+        50% {
+            transform: translateY(15px);
+        }
+    }
+}
