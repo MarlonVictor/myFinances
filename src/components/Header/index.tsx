@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import ReactTooltip from 'react-tooltip'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -49,8 +48,6 @@ export function Header() {
                     >
                         <img src={PowerIcon} alt="Sair" />
                     </button>
-
-                    <ReactTooltip place="bottom" type="light" />
                 </nav>
             </div>
         </header>

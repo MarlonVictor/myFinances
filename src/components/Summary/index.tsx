@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 
 export function Summary() {
     const { user, showSummary } = useContext(AuthContext)
-    const { transactions } = useUser(user?.id)
+    const { transactions, summary } = useUser(user?.id)
 
     const [lastIncome, setLastIncome] = useState('')
     const [lastOutcome, setLastOutcome] = useState('')
@@ -23,23 +23,6 @@ export function Summary() {
             transaction.type === 'income' ? setLastIncome(transaction.createdAt) : setLastOutcome(transaction.createdAt)
         })
     }, [transactions])
-
-    const summary = transactions.reduce((acc, transaction) => {
-        if (transaction.type === 'income') {
-            acc.deposits += transaction.price
-            acc.total += transaction.price
-
-        } else {
-            acc.withdraws += transaction.price
-            acc.total -= transaction.price
-        }
-
-        return acc
-    }, {
-        deposits: 0,
-        withdraws: 0,
-        total: 0
-    })
 
     function SkeletonComponent() {
         return (

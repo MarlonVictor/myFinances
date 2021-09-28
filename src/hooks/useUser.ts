@@ -47,5 +47,22 @@ export function useUser(userId: string | undefined) {
         return () => userRef.off('value')
     }, [userId])
 
-    return { transactions }
+    const summary = transactions.reduce((acc, transaction) => {
+        if (transaction.type === 'income') {
+            acc.deposits += transaction.price
+            acc.total += transaction.price
+
+        } else {
+            acc.withdraws += transaction.price
+            acc.total -= transaction.price
+        }
+
+        return acc
+    }, {
+        deposits: 0,
+        withdraws: 0,
+        total: 0
+    })
+
+    return { transactions, summary }
 }

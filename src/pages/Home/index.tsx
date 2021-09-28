@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import ReactTooltip from 'react-tooltip'
 import { motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom'
 
@@ -53,6 +54,8 @@ export function Home() {
                 showDashboard={showDashboard}
                 setContent={setShowDashboard}
             />
+
+            <ReactTooltip place="bottom" type="dark" />
         </>
     )
 }

@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
-import { IoIosArrowDown } from 'react-icons/io'
+import ReactTooltip from 'react-tooltip'
+import { IoIosArrowDown, IoIosTrash } from 'react-icons/io'
 
 import { useUser } from '../../hooks/useUser'
+import { database } from '../../services/firebase'
 import { AuthContext } from '../../contexts/AuthContext'
 
 import { transactionCategoryIcon } from '../../utils/transactionCategoryIcon'
@@ -12,6 +14,10 @@ import styles from './styles.module.scss'
 export function TransactionsTable() {
     const { user } = useContext(AuthContext)
     const { transactions } = useUser(user?.id)
+
+    async function handleDeleteTransaction(transactionId: string) {
+        await database.ref(`users/${user?.id}/transactions/${transactionId}`).remove()
+    }
 
     return (
         <>
@@ -56,6 +62,13 @@ export function TransactionsTable() {
                                                         new Date(transaction.createdAt)
                                                     )}
                                                 </td>
+                                                <td 
+                                                    className={styles.trashIcon} 
+                                                    data-tip={`Excluir [${transaction.name}]`}
+                                                    onClick={() => handleDeleteTransaction(transaction.id)}
+                                                >
+                                                    <IoIosTrash />
+                                                </td>
                                             </tr>
                                         )
                                     })}
@@ -70,7 +83,15 @@ export function TransactionsTable() {
                                 return (
                                     <div key={transaction.id}>
                                         <main>
-                                            <p>{transaction.name}</p>
+                                            <p>
+                                                <span>{transaction.name}</span>
+                                                <span 
+                                                    data-tip={`Excluir [${transaction.name}]`}
+                                                    onClick={() => handleDeleteTransaction(transaction.id)}
+                                                >
+                                                    <IoIosTrash />
+                                                </span>
+                                            </p>
                                             <span
                                                 className={
                                                     transaction.type == 'income' 
@@ -108,7 +129,8 @@ export function TransactionsTable() {
                     </section>
                 )
             }
+
+            <ReactTooltip place="bottom" type="dark" />
         </>
     )
 }
-
