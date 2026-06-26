@@ -43,7 +43,8 @@
     ]
   },
   "resolutions": {
-    "postcss": "7.0.39"
+    "postcss": "7.0.39",
+    "postcss-safe-parser": "4.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",

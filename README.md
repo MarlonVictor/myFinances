@@ -42,7 +42,7 @@
 
 <p align="center">
   <video
-    src="https://github.com/MarlonVictor/myFinances/releases/download/v1.0.0/transaction.mp4"
+    src="assets/transaction.mp4"
     width="900"
     autoplay
     muted

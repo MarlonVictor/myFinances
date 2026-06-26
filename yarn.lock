@@ -13150,12 +13150,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-safe-parser@npm:5.0.2":
-  version: 5.0.2
-  resolution: "postcss-safe-parser@npm:5.0.2"
+"postcss-safe-parser@npm:4.0.2":
+  version: 4.0.2
+  resolution: "postcss-safe-parser@npm:4.0.2"
   dependencies:
-    postcss: "npm:^8.1.0"
-  checksum: 10c0/017c3d43eeebe31808e22aaccf5a14a9c15b95004b2b93f96a7c35d87ecc1a72903014ee5defef637ce10ea7b12e73a95e22b273a018e500599f3d64af3f8e9f
+    postcss: "npm:^7.0.26"
+  checksum: 10c0/166f0f53fdb23cb478bafc43a508f49456db750d859c26c975fbc54f27071746b2a5bc6a9022fa795e28ce5a61420d65cf5bec6af93f66fb66511fc0d63ab61a
   languageName: node
   linkType: hard
 
