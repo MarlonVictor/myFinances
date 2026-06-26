@@ -1,6 +1,12 @@
 <h1 align="center" style="font-weight: bold;">myFinances 💰</h1>
 
 <p align="center">
+  <img src="https://img.shields.io/github/last-commit/MarlonVictor/myFinances?style=for-the-badge&logo=git&logoColor=white&labelColor=09090A&color=FF941A" alt="last commit" />
+  <img src="https://img.shields.io/github/stars/MarlonVictor/myFinances?style=for-the-badge&logo=github&logoColor=white&labelColor=09090A&color=FF941A" alt="stars" />
+  <img src="https://img.shields.io/github/license/MarlonVictor/myFinances?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=09090A&color=FF941A" alt="license" />
+</p>
+
+<p align="center">
  <a href="#layout">Layout</a> •
  <a href="#features">Features</a> •
  <a href="#technologies">Technologies</a> •
@@ -10,14 +16,7 @@
  <a href="#routes">Routes</a> •
  <a href="#roadmap">Roadmap</a> •
  <a href="#colab">Collaborators</a> •
- <a href="#contact">Contact</a> •
  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/last-commit/MarlonVictor/myFinances?style=for-the-badge&logo=git&logoColor=white&labelColor=09090A&color=FF941A" alt="last commit" />
-  <img src="https://img.shields.io/github/stars/MarlonVictor/myFinances?style=for-the-badge&logo=github&logoColor=white&labelColor=09090A&color=FF941A" alt="stars" />
-  <img src="https://img.shields.io/github/license/MarlonVictor/myFinances?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=09090A&color=FF941A" alt="license" />
 </p>
 
 <p align="center">
@@ -36,20 +35,6 @@
 
 <p align="center">
     <img src="assets/screenshot.png" alt="Dashboard screenshot" width="900px">
-</p>
-
-<p align="center"><b>Adding and deleting a transaction</b></p>
-
-<p align="center">
-  <video
-    src="assets/transaction.mp4"
-    width="900"
-    autoplay
-    muted
-    loop
-    playsinline
-    controls
-  ></video>
 </p>
 
 <h2 id="features">✨ Features</h2>
@@ -197,12 +182,6 @@ Contributions are always welcome!
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-<h2 id="contact">📬 Contact</h2>
-
-Marlon Victor — [@MarlonVictor](https://github.com/MarlonVictor)
-
-Project Link: [https://github.com/MarlonVictor/myFinances](https://github.com/MarlonVictor/myFinances)
 
 <h2 id="license">License 📃</h2>
 
