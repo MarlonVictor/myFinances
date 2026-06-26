@@ -3293,6 +3293,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/history@npm:^4.7.11":
+  version: 4.7.11
+  resolution: "@types/history@npm:4.7.11"
+  checksum: 10c0/3facf37c2493d1f92b2e93a22cac7ea70b06351c2ab9aaceaa3c56aa6099fb63516f6c4ec1616deb5c56b4093c026a043ea2d3373e6c0644d55710364d02c934
+  languageName: node
+  linkType: hard
+
 "@types/html-minifier-terser@npm:^5.0.0":
   version: 5.1.1
   resolution: "@types/html-minifier-terser@npm:5.1.1"
@@ -3325,7 +3332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:*, @types/jest@npm:^26.0.15":
+"@types/jest@npm:*, @types/jest@npm:26.0.24":
   version: 26.0.24
   resolution: "@types/jest@npm:26.0.24"
   dependencies:
@@ -3384,17 +3391,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:12.20.55":
+  version: 12.20.55
+  resolution: "@types/node@npm:12.20.55"
+  checksum: 10c0/3b190bb0410047d489c49bbaab592d2e6630de6a50f00ba3d7d513d59401d279972a8f5a598b5bb8ddc1702f8a2f4ec57a65d93852f9c329639738e7053637d1
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
   version: 16.6.1
   resolution: "@types/node@npm:16.6.1"
   checksum: 10c0/6fb1cff755290d1ecc6bf1d036fb822112d583e9fdc69c685b40c3b2ea965d0e4da71e1f24aaa000911b24ec8ac76683ee5df914351678c37f9dee5304d0bbf2
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^12.0.0":
-  version: 12.20.19
-  resolution: "@types/node@npm:12.20.19"
-  checksum: 10c0/81f77572921e4d9427c5f1df2d9e60b37d5a211a8745dfab3ac2d33c0a4ab3c00e0a85d5cca4b5642b012c81c8ea150e7b15860aaf16b68f35f66968097a56f6
   languageName: node
   linkType: hard
 
@@ -3433,23 +3440,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.0":
-  version: 17.0.9
-  resolution: "@types/react-dom@npm:17.0.9"
+"@types/react-dom@npm:17.0.25":
+  version: 17.0.25
+  resolution: "@types/react-dom@npm:17.0.25"
   dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/1ab01e888dd05ffb6ed6adcc349704c7ec05b22c672651cb278ec5f98d28610b0034657980b1c66d168914fdda04c30303ab41bf104d703bf85b3cc67989b1de
+    "@types/react": "npm:^17"
+  checksum: 10c0/18a95d4d684cacc697d97ae66e3c8402da2f866c053fa6a5982694aa8eb6229afcefd3bfaaab4175c1b0ef3494c881e4d25e2167aa669bcbbb84114fd02ae5ba
   languageName: node
   linkType: hard
 
-"@types/react-router-dom@npm:^5.1.8":
-  version: 5.1.8
-  resolution: "@types/react-router-dom@npm:5.1.8"
+"@types/react-router-dom@npm:5.3.3":
+  version: 5.3.3
+  resolution: "@types/react-router-dom@npm:5.3.3"
   dependencies:
-    "@types/history": "npm:*"
+    "@types/history": "npm:^4.7.11"
     "@types/react": "npm:*"
     "@types/react-router": "npm:*"
-  checksum: 10c0/8f12f2ab023a5b2db9076d16b999b1241ffd4a34d9491dd14e7ba2fd26189ce236769c433468a065c9249f1e04b0c4ee814d1f1710e3e578df63dfd9d9f551ff
+  checksum: 10c0/a9231a16afb9ed5142678147eafec9d48582809295754fb60946e29fcd3757a4c7a3180fa94b45763e4c7f6e3f02379e2fcb8dd986db479dcab40eff5fc62a91
   languageName: node
   linkType: hard
 
@@ -3463,14 +3470,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17.0.0":
-  version: 17.0.16
-  resolution: "@types/react@npm:17.0.16"
+"@types/react@npm:17.0.65":
+  version: 17.0.65
+  resolution: "@types/react@npm:17.0.65"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/a962cbe8290c32c53be1b28f58afefef00c296d6b462fbde16fce43567240ec088e6d31303fd67728f4b81cb1745076b71c6cfedd793facd46240301f2198bac
+  checksum: 10c0/6451cb4fa43228ea9be05522f02ba2295fd11276a6e7e2e61f9de02690006d1137fc83c65449f3c909c35bb760623cdb312949431cd9b152bcb38facc63ffb2f
   languageName: node
   linkType: hard
 
@@ -11391,12 +11398,12 @@ __metadata:
     "@testing-library/jest-dom": "npm:^5.11.4"
     "@testing-library/react": "npm:^11.1.0"
     "@testing-library/user-event": "npm:^12.1.10"
-    "@types/jest": "npm:^26.0.15"
+    "@types/jest": "npm:26.0.24"
     "@types/minimatch": "npm:5.1.2"
-    "@types/node": "npm:^12.0.0"
-    "@types/react": "npm:^17.0.0"
-    "@types/react-dom": "npm:^17.0.0"
-    "@types/react-router-dom": "npm:^5.1.8"
+    "@types/node": "npm:12.20.55"
+    "@types/react": "npm:17.0.65"
+    "@types/react-dom": "npm:17.0.25"
+    "@types/react-router-dom": "npm:5.3.3"
     "@typescript-eslint/eslint-plugin": "npm:^4.29.0"
     "@typescript-eslint/parser": "npm:^4.29.0"
     eslint: "npm:^7.32.0"

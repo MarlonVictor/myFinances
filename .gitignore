@@ -1,15 +1,17 @@
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-.pnp.cjs
-.pnp.loader.mjs
 
-# yarn
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
+# yarn (Berry)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# npm lockfile (project uses Yarn)
+package-lock.json
 
 # testing
 /coverage
