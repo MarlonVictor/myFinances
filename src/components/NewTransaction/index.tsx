@@ -1,133 +1,187 @@
-import React, { useContext, useState } from 'react'
-import { Field, Formik, Form } from 'formik'
+import React, { useContext, useEffect, useState } from 'react'
+import { Field, Formik, Form, useFormikContext } from 'formik'
 import { ptForm } from 'yup-locale-pt'
 import * as Yup from 'yup'
+import { HiTrendingDown, HiTrendingUp } from 'react-icons/hi'
+import { BiPlusCircle } from 'react-icons/bi'
 
 import { database } from '../../services/firebase'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useToast } from '../../contexts/ToastContext'
+import { transactionCategoryIcon } from '../../utils/transactionCategoryIcon'
 
-import IncomeIcon from '../../assets/income.svg'
-import OutcomeIcon from '../../assets/outcome.svg'
-
+import { CurrencyField } from './CurrencyField'
+import { INCOME_CATEGORIES, OUTCOME_CATEGORIES } from './categories'
 import styles from './styles.module.scss'
 
-
-type handleCreateNewTransactionProps = {
-    name: string,
-    price: string,
+type FormValues = {
+    name: string
+    price: number | ''
     category: string
+}
+
+type SubmitHelpers = {
+    resetForm: () => void
+}
+
+function CategoryPicker({
+    transactionType,
+    hasError,
+}: {
+    transactionType: string
+    hasError?: boolean
+}) {
+    const { values, setFieldValue } = useFormikContext<FormValues>()
+    const categories = transactionType === 'income' ? INCOME_CATEGORIES : OUTCOME_CATEGORIES
+
+    return (
+        <div
+            className={`${styles.categoryGrid} ${hasError ? styles.categoryGridError : ''}`}
+            role="group"
+            aria-label="Categoria"
+        >
+            {categories.map(category => {
+                const selected = values.category === category
+
+                return (
+                    <button
+                        key={category}
+                        type="button"
+                        className={`${styles.categoryChip} ${selected ? styles.categoryChipActive : ''}`}
+                        onClick={() => setFieldValue('category', category)}
+                        aria-pressed={selected}
+                    >
+                        <span className={styles.categoryIcon}>
+                            {transactionCategoryIcon(category)}
+                        </span>
+                        <span>{category}</span>
+                    </button>
+                )
+            })}
+        </div>
+    )
+}
+
+function TypeSync({ transactionType }: { transactionType: string }) {
+    const { setFieldValue } = useFormikContext<FormValues>()
+
+    useEffect(() => {
+        setFieldValue('category', '')
+    }, [transactionType, setFieldValue])
+
+    return null
 }
 
 export function NewTransaction() {
     Yup.setLocale(ptForm)
     const { user } = useContext(AuthContext)
-
+    const { showToast } = useToast()
     const [transactionType, setTransactionType] = useState('income')
-    
+
     const schema = Yup.object().shape({
-        name: Yup.string().required(),
-        price: Yup.number().integer().required(),
-        category: Yup.string().default('').required()
+        name: Yup.string().trim().required(),
+        price: Yup.number().positive().required(),
+        category: Yup.string().required(),
     })
 
-    // eslint-disable-next-line
-    function handleCreateNewTransaction(values: handleCreateNewTransactionProps, { resetForm }: any) {
+    async function handleCreateNewTransaction(values: FormValues, { resetForm }: SubmitHelpers) {
         const transactionsRef = database.ref(`users/${user?.id}/transactions`)
         const currentDate = new Date()
 
-        transactionsRef.push({
-            ...values,
-            type: transactionType,
-            createdAt: currentDate.toString()
-        })
+        try {
+            await transactionsRef.push({
+                name: values.name,
+                price: String(values.price),
+                category: values.category,
+                type: transactionType,
+                createdAt: currentDate.toString(),
+            })
 
-        resetForm()
+            resetForm()
+            showToast('Transação cadastrada com sucesso!')
+        } catch {
+            showToast('Não foi possível cadastrar a transação.', 'error')
+        }
     }
 
     return (
-        <Formik 
+        <Formik<FormValues>
             initialValues={{
                 name: '',
                 price: '',
-                category:''
+                category: '',
             }}
             onSubmit={handleCreateNewTransaction}
             validationSchema={schema}
         >
-            {({ errors }) => (
+            {({ errors, touched }) => (
                 <Form className={styles.NewTransactionContainer}>
-                    <h2>Novo cadastro</h2>
+                    <header className={styles.header}>
+                        <h2>Novo cadastro</h2>
+                        <p>Registre uma entrada ou saída financeira</p>
+                    </header>
 
-                    <Field 
-                        name="name" 
-                        type="text" 
-                        placeholder="Nome" 
-                        className={errors.name ? styles.inputError : ''}
-                    />
-                    <small>{errors.name}</small>
+                    <TypeSync transactionType={transactionType} />
 
-                    <Field 
-                        name="price" 
-                        type="number" 
-                        placeholder="Valor" 
-                        className={errors.price ? styles.inputError : ''}
-                    />
-                    <small>{errors.price}</small>
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="name">Nome</label>
+                        <Field
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Ex: Salário, Mercado, Netflix..."
+                            className={`${styles.input} ${errors.name && touched.name ? styles.inputError : ''}`}
+                        />
+                        {errors.name && touched.name && <small>{errors.name}</small>}
+                    </div>
 
-                    <fieldset>
-                        <button 
-                            type="button"
-                            onClick={() => setTransactionType('income')}
-                            className={transactionType == 'income' ? styles.checkedButton : ''}
-                        >
-                            <img src={IncomeIcon} alt="Entrada" />
-                            Entrada
-                        </button>
-                        <button 
-                            type="button"
-                            onClick={() => setTransactionType('outcome')}
-                            className={transactionType == 'outcome' ? styles.checkedButton : ''}
-                        >
-                            <img src={OutcomeIcon} alt="Saída" />
-                            Saída
-                        </button>
-                    </fieldset>
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="price">Valor</label>
+                        <CurrencyField
+                            name="price"
+                            hasError={Boolean(errors.price && touched.price)}
+                        />
+                        {errors.price && touched.price && <small>{errors.price}</small>}
+                    </div>
 
-                    <Field 
-                        as="select" 
-                        name="category" 
-                        title="Categorias"
-                        className={errors.category ? styles.inputError : ''}
-                    >
-                        <option hidden>Categorias</option>
-                        {transactionType === 'outcome'
-                            ? (
-                                <>
-                                    <option value="Moda">Moda</option>
-                                    <option value="Objeto">Objeto</option>
-                                    <option value="Eletrônico">Eletrônico</option>
-                                    <option value="Auto">Auto</option>
-                                    <option value="Imóvel">Imóvel</option>
-                                    <option value="Hobby">Hobby</option>
-                                    <option value="Viagem">Viagem</option>
-                                    <option value="Compras">Compras</option>
-                                </>
-                            ) : (
-                                <>
-                                    <option value="Vendas">Vendas</option>
-                                    <option value="Trabalho">Trabalho</option>
-                                    <option value="Presente">Presente</option>
-                                </>
-                            )
-                        }
-                    </Field>
-                    <small>{errors.category}</small>
+                    <div className={styles.fieldGroup}>
+                        <span className={styles.fieldLabel}>Tipo</span>
+                        <div className={styles.typeToggle}>
+                            <button
+                                type="button"
+                                onClick={() => setTransactionType('income')}
+                                className={`${styles.typeButton} ${transactionType === 'income' ? styles.typeButtonActive : ''}`}
+                                aria-pressed={transactionType === 'income'}
+                            >
+                                <HiTrendingUp />
+                                Entrada
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setTransactionType('outcome')}
+                                className={`${styles.typeButton} ${transactionType === 'outcome' ? styles.typeButtonActive : ''}`}
+                                aria-pressed={transactionType === 'outcome'}
+                            >
+                                <HiTrendingDown />
+                                Saída
+                            </button>
+                        </div>
+                    </div>
 
-                    <button 
-                        type="submit"
-                        className={styles.sendButton}
-                    >
-                        Cadastrar
+                    <div className={styles.fieldGroup}>
+                        <span className={styles.fieldLabel}>Categoria</span>
+                        <CategoryPicker
+                            transactionType={transactionType}
+                            hasError={Boolean(errors.category && touched.category)}
+                        />
+                        {errors.category && touched.category && <small>{errors.category}</small>}
+                    </div>
+
+                    <button type="submit" className={styles.sendButton}>
+                        <span className={styles.sendButtonIcon} aria-hidden="true">
+                            <BiPlusCircle />
+                        </span>
+                        <span>Cadastrar</span>
                     </button>
                 </Form>
             )}

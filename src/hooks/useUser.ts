@@ -22,8 +22,17 @@ type TransactionType = {
 
 export function useUser(userId: string | undefined) {
     const [transactions, setTransactions] = useState<TransactionType[]>([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        if (!userId) {
+            setTransactions([])
+            setIsLoading(false)
+            return
+        }
+
+        setIsLoading(true)
+
         const userRef = database.ref(`users/${userId}`)
 
         userRef.on('value', user => {
@@ -42,6 +51,7 @@ export function useUser(userId: string | undefined) {
             })
 
             setTransactions(parsedTransactions)
+            setIsLoading(false)
         })
         
         return () => userRef.off('value')
@@ -64,5 +74,5 @@ export function useUser(userId: string | undefined) {
         total: 0
     })
 
-    return { transactions, summary }
+    return { transactions, summary, isLoading }
 }

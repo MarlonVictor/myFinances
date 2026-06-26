@@ -10,6 +10,7 @@ type UserProps = {
 
 type AuthContextData = {
     user: UserProps | undefined
+    isAuthReady: boolean
     showSummary: boolean
     signInWithGoogle: () => Promise<void>
     signOut: () => Promise<void>
@@ -24,12 +25,13 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [user, setUser] = useState<UserProps>()
+    const [isAuthReady, setIsAuthReady] = useState(false)
     const [showSummary, setShowSummary] = useState(true)
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            if (user) {
-                const { uid, displayName, photoURL } = user
+        const unsubscribe = auth.onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                const { uid, displayName, photoURL } = firebaseUser
     
                 if (!displayName) {
                     throw new Error('Missing information from Google Account.')
@@ -40,7 +42,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
                     name: displayName,
                     avatar: photoURL
                 })
+            } else {
+                setUser(undefined)
             }
+
+            setIsAuthReady(true)
         })
 
         return () => {
@@ -80,6 +86,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         <AuthContext.Provider
             value={{
                 user,
+                isAuthReady,
                 showSummary,
                 signInWithGoogle,
                 signOut,

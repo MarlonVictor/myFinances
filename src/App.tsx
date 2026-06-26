@@ -1,15 +1,17 @@
 import React from 'react'
-import Routes from './routes'
 
 import { AuthContextProvider } from './contexts/AuthContext'
+import { ToastProvider } from './contexts/ToastContext'
+import { AppShell } from './components/AppShell'
 
 import './styles/global.scss'
-
 
 function App() {
     return (
         <AuthContextProvider>
-            <Routes />
+            <ToastProvider>
+                <AppShell />
+            </ToastProvider>
         </AuthContextProvider>
     )
 }

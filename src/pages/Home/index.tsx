@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -27,28 +27,32 @@ export function Home() {
         <>
             <Header />
 
-            {showDashboard
-                ? (
-                    <motion.main
-                        initial={{ opacity: 0, x: -500 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -500 }}
-                        transition={{ ease: 'easeOut' }}
-                    >
-                        <Dashboard />
-                    </motion.main>
-                )
-                : (
-                    <motion.div
-                        initial={{ opacity: 0, x: 500 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 500 }}
-                        transition={{ ease: 'easeOut' }}
-                    >
-                        <NewTransaction />
-                    </motion.div>
-                )
-            }
+            <AnimatePresence exitBeforeEnter>
+                {showDashboard
+                    ? (
+                        <motion.main
+                            key="dashboard"
+                            initial={{ opacity: 0, x: -32 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -32 }}
+                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <Dashboard />
+                        </motion.main>
+                    )
+                    : (
+                        <motion.div
+                            key="new-transaction"
+                            initial={{ opacity: 0, x: 32 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 32 }}
+                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            <NewTransaction />
+                        </motion.div>
+                    )
+                }
+            </AnimatePresence>
 
             <Footer 
                 showDashboard={showDashboard}

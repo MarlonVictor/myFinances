@@ -1,45 +1,81 @@
 .FooterContainer {
     position: fixed;
-    bottom: 0;
+    bottom: 1.25rem;
     left: 0;
-    width: 100%;
+    right: 0;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    pointer-events: none;
+}
+
+.tabBar {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.35rem;
 
     background: var(--card);
-    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 999px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
 
-    div {
-        display: flex;
-        align-items: center;
+    pointer-events: auto;
+}
 
-        margin: 0 auto;
-        max-width: 1120px;
-        padding: 1.5rem 1rem;
+.tab {
+    position: relative;
+    border: 0;
+    background: transparent;
+    border-radius: 999px;
+    cursor: pointer;
+}
 
-        span {
-            flex: 1;
-            
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+.tabSegment {
+    position: absolute;
+    inset: 0;
+    background: var(--orange);
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(255, 148, 26, 0.4);
+}
 
-            color: var(--text-body);
-            font: 500 1.2rem 'Lexend', sans-serif;
+.tabInner {
+    position: relative;
+    z-index: 1;
 
-            cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
 
-            svg {
-                font-size: 1.5rem;
-            }
+    padding: 0.65rem 1.35rem;
 
-            
-            &.selected {
-                color: var(--text-title);
+    color: var(--text-title);
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
 
-                svg {
-                    color: var(--orange);
-                }
-            }
+    transition: color 0.2s ease;
+
+    svg {
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        color: var(--text-title);
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .tabActive & {
+        color: var(--card);
+
+        svg {
+            color: var(--card);
+            transform: scale(1.05);
         }
     }
+}
+
+.tab:not(.tabActive):hover .tabInner svg {
+    color: var(--orange);
 }

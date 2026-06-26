@@ -1,19 +1,45 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { HiTrendingUp, HiTrendingDown, HiCurrencyDollar } from 'react-icons/hi'
 
 import { useUser } from '../../hooks/useUser'
 import { AuthContext } from '../../contexts/AuthContext'
 
-import IncomeIcon from '../../assets/income.svg'
-import OutcomeIcon from '../../assets/outcome.svg'
-import TotalIcon from '../../assets/total.svg'
-
 import styles from './styles.module.scss'
 
+const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+})
+
+const dateFormatter = new Intl.DateTimeFormat('pt-BR')
+
+type ValueSkeletonProps = {
+    width?: number
+    dark?: boolean
+}
+
+function ValueSkeleton({ width = 140, dark = false }: ValueSkeletonProps) {
+    const skeleton = (
+        <strong className={styles.valueSkeleton} aria-hidden="true">
+            <Skeleton width={width} height={28} />
+        </strong>
+    )
+
+    if (dark) {
+        return (
+            <SkeletonTheme color="rgba(255, 255, 255, 0.12)" highlightColor="rgba(255, 255, 255, 0.22)">
+                {skeleton}
+            </SkeletonTheme>
+        )
+    }
+
+    return skeleton
+}
 
 export function Summary() {
     const { user, showSummary } = useContext(AuthContext)
-    const { transactions, summary } = useUser(user?.id)
+    const { transactions, summary, isLoading } = useUser(user?.id)
 
     const [lastIncome, setLastIncome] = useState('')
     const [lastOutcome, setLastOutcome] = useState('')
@@ -24,89 +50,58 @@ export function Summary() {
         })
     }, [transactions])
 
-    function SkeletonComponent() {
-        return (
-            <blockquote style={{ marginTop: '10px' }}>
-                <Skeleton height={54} />
-            </blockquote>
-        )
+    function renderValue(amount: number, dark = false) {
+        if (isLoading || !showSummary) {
+            return <ValueSkeleton dark={dark} />
+        }
+
+        return <strong>{currencyFormatter.format(amount)}</strong>
     }
 
     return (
         <div className={styles.SummaryContainer}>
-            <div>
+            <div className={styles.card}>
                 <header>
                     <p>Entradas</p>
-                    <img src={IncomeIcon} alt="Entradas" />
+                    <span className={`${styles.iconBadge} ${styles.incomeBadge}`}>
+                        <HiTrendingUp />
+                    </span>
                 </header>
-                {showSummary
-                    ? (
-                        <>
-                            <strong>
-                                {new Intl.NumberFormat('pt-BR', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                }).format(summary.deposits)}
-                            </strong>
-                            {lastIncome && (
-                                <small>
-                                    Última entrada dia
-                                    <em>
-                                        {new Intl.DateTimeFormat('pt-BR').format(
-                                            new Date(lastIncome)
-                                        )}
-                                    </em>
-                                </small>
-                            )}
-                        </>
-                    ) 
-                    : <SkeletonComponent />
-                }
+                {renderValue(summary.deposits)}
+                {!isLoading && showSummary && lastIncome && (
+                    <small>
+                        Última entrada dia
+                        <em>{dateFormatter.format(new Date(lastIncome))}</em>
+                    </small>
+                )}
             </div>
-            <div>
+
+            <div className={styles.card}>
                 <header>
                     <p>Saídas</p>
-                    <img src={OutcomeIcon} alt="Saídas" />
+                    <span className={`${styles.iconBadge} ${styles.outcomeBadge}`}>
+                        <HiTrendingDown />
+                    </span>
                 </header>
-                {showSummary
-                    ? (
-                        <>
-                            <strong>
-                                {new Intl.NumberFormat('pt-BR', {
-                                    style: 'currency',
-                                    currency: 'BRL'
-                                }).format(summary.withdraws)}
-                            </strong>
-                            {lastOutcome && (
-                                <small>
-                                    Última saída dia
-                                    <em>
-                                        {new Intl.DateTimeFormat('pt-BR').format(
-                                            new Date(lastOutcome)
-                                        )}
-                                    </em>
-                                </small>
-                            )}
-                        </>
-                    )
-                    : <SkeletonComponent />
-                }
+                {renderValue(summary.withdraws)}
+                {!isLoading && showSummary && lastOutcome && (
+                    <small>
+                        Última saída dia
+                        <em>{dateFormatter.format(new Date(lastOutcome))}</em>
+                    </small>
+                )}
             </div>
-            <div>
+
+            <div className={`${styles.card} ${styles.totalCard}`}>
                 <header>
                     <p>Total</p>
-                    <img src={TotalIcon} alt="Total" />
+                    <span className={`${styles.iconBadge} ${styles.totalBadge}`}>
+                        <HiCurrencyDollar />
+                    </span>
                 </header>
-                {showSummary
-                    ? (
-                        <strong>
-                            {new Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL'
-                            }).format(summary.total)}
-                        </strong>
-                    )
-                    : ''
+                {isLoading
+                    ? <ValueSkeleton width={160} dark />
+                    : showSummary && <strong>{currencyFormatter.format(summary.total)}</strong>
                 }
             </div>
         </div>

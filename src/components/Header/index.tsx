@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../contexts/AuthContext'
 
 import EyeIcon from '../../assets/eye.svg'
 import PowerIcon from '../../assets/power.svg'
+import DefaultAvatar from '../../assets/default-avatar.svg'
 
 import styles from './styles.module.scss'
 
@@ -12,20 +13,31 @@ import styles from './styles.module.scss'
 export function Header() {
     const history = useHistory()
     const { user, signOut, handleShowSummary } = useContext(AuthContext)
+    const [avatarSrc, setAvatarSrc] = useState(DefaultAvatar)
 
-    const defaultImage = 'https://user-images.githubusercontent.com/62356988/130330350-5ee94f12-1509-4b50-b876-4f0aa5e30a1a.jpg'
+    useEffect(() => {
+        setAvatarSrc(user?.avatar || DefaultAvatar)
+    }, [user?.avatar])
 
     async function handleSignOut() {
         await signOut()
         history.push('/')
     }
 
+    function handleAvatarError() {
+        setAvatarSrc(DefaultAvatar)
+    }
+
     return (
         <header className={styles.headerContainer}>
             <div>
                 <main>
-                    <img src={user?.avatar || defaultImage} alt="myFinances" />
-                    
+                    <img
+                        src={avatarSrc}
+                        alt={user?.name || 'Avatar'}
+                        onError={handleAvatarError}
+                    />
+
                     <span>
                         <p>Olá,</p>
                         <strong>{user?.name}</strong>

@@ -1,60 +1,193 @@
 .TableContainer {
-    margin: 4rem auto;
+    margin: 3rem auto 4rem;
 
-    @media(max-width: 768px) {
+    @media (max-width: 768px) {
         display: none;
     }
 
     table {
         width: 100%;
         border-spacing: 0 0.5rem;
-
-        svg {
-            transform: translateY(2px);
-            margin-right: 5px;
-        }
+        border-collapse: separate;
 
         th {
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.25rem;
 
-            font-weight: 400;
+            font-weight: 500;
+            font-size: 0.875rem;
             text-align: left;
-            line-height: 1.5rem;
             color: var(--text-body);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+            white-space: nowrap;
+
+            &:hover {
+                color: var(--text-title);
+            }
+
+            &.activeColumn {
+                color: var(--orange);
+            }
 
             &:nth-child(3) {
                 min-width: 160px;
             }
         }
 
-        .trashIcon {
-            margin: 0;
-            padding: 0;
-            
-            font-size: 1.3rem;
+        .sortIcon {
+            display: inline-block;
+            margin-left: 0.35rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            opacity: 0.45;
+        }
 
-            cursor: pointer;
-            transition: color .2s;
+        .sortIconActive {
+            display: inline-block;
+            margin-left: 0.35rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            color: var(--orange);
+        }
+
+        tbody tr {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
 
             &:hover {
-                color: var(--red);
+                transform: translateY(-1px);
+
+                td {
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+                }
             }
         }
 
         td {
-            padding: 1rem 2rem;
+            padding: 1rem 1.25rem;
+            vertical-align: middle;
 
             border: 0;
-            border-radius: 0.25rem;
-
             background: var(--card);
             color: var(--text-body);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 
             &:first-child {
+                border-radius: 0.75rem 0 0 0.75rem;
                 color: var(--text-title);
-                width: 50%;
+                font-weight: 500;
             }
-            
+
+            &:last-child {
+                border-radius: 0 0.75rem 0.75rem 0;
+            }
+
+            &.deposit {
+                color: var(--green);
+                font-weight: 500;
+            }
+
+            &.withdraw {
+                color: var(--red);
+                font-weight: 500;
+            }
+        }
+
+        .actionColumn {
+            width: 4rem;
+            padding: 0;
+            text-align: center;
+            cursor: default;
+        }
+    }
+}
+
+.priceSkeleton {
+    display: inline-block;
+    line-height: 1;
+}
+
+.categoryBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    padding: 0.35rem 0.75rem;
+
+    background: #F0F2F5;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: var(--text-title);
+
+    svg {
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+}
+
+.deleteButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0.5rem;
+    background: transparent;
+
+    font-size: 1.1rem;
+    color: var(--text-body);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+        background: rgba(229, 46, 77, 0.1);
+        color: var(--red);
+    }
+}
+
+.MobileListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    margin: 3rem auto 4rem;
+
+    @media (min-width: 769px) {
+        display: none;
+    }
+}
+
+.mobileCard {
+    padding: 1.25rem 1.5rem;
+
+    background: var(--card);
+    color: var(--text-title);
+
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+    main {
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-title);
+        }
+
+        > span {
+            display: block;
+            padding: 0.5rem 0 1rem;
+
+            font-size: 1.35rem;
+            font-weight: 600;
+
             &.deposit {
                 color: var(--green);
             }
@@ -63,87 +196,22 @@
                 color: var(--red);
             }
         }
-    }
-}
 
-.MobileListContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    margin: 4rem auto;
-
-    @media(min-width: 769px) {
-        display: none;
-    }
-
-    h2 {
-        padding-bottom: 1rem;
-
-        font-size: 1.5rem;
-        color: var(--text-title);
-    }
-
-    div {
-        padding: 1.5rem 2rem;
-
-        background: var(--card);
-        color: var(--text-title);
-
-        border-radius: 0.25rem;
-
-        main {
-            p {
-                display: flex;
-                justify-content: space-between;
-                
-                font-size: 1.2rem;
-                color: var(--text-title);
-
-                span:last-child {
-                    font-size: 1.4rem;
-                    color: var(--text-body);
-
-                    cursor: pointer;
-                    transition: color .2s;
-
-                    &:hover {
-                        color: var(--red);
-                    }
-                }
-            }
-
-            > span {
-                display: block;
-                padding: 0.5rem 0 1.2rem;
-
-                font-size: 1.5rem;
-
-                &.deposit {
-                    color: var(--green);
-                }
-    
-                &.withdraw {
-                    color: var(--red);
-                }
-            }
+        .priceSkeleton {
+            display: block;
+            padding: 0.5rem 0 1rem;
+            line-height: 1;
         }
+    }
 
-        footer {
-            display: flex;
-            justify-content: space-between;
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
 
-            color: var(--text-body);
-
-            span {
-                font-size: 1.2rem;
-
-                svg {
-                    margin-bottom: -2px;
-                    margin-right: 5px;
-                }
-            }
-        }
+        color: var(--text-body);
+        font-size: 0.875rem;
     }
 }
 
@@ -157,5 +225,51 @@
     h1 {
         font-size: 2rem;
         color: var(--text-body);
+    }
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    margin: -2rem auto 4rem;
+}
+
+.paginationInfo {
+    min-width: 8rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-body);
+}
+
+.paginationButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0.5rem;
+    background: var(--card);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+
+    font-size: 1.1rem;
+    color: var(--text-title);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+
+    &:hover:not(:disabled) {
+        background: #FFF5EB;
+        color: var(--orange);
+        box-shadow: 0 2px 8px rgba(255, 148, 26, 0.15);
+    }
+
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
     }
 }

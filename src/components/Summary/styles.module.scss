@@ -1,55 +1,125 @@
 .SummaryContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
 
     position: relative;
     margin-top: -9rem;
-    
-    @media(max-width: 768px) {
+
+    @media (max-width: 768px) {
+        display: flex;
         overflow-x: auto;
-        
-        div {
-            width: 260px;
-            margin-bottom: 0.5rem;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
         }
     }
+}
 
-    div {
-        padding: 1.5rem 2rem;
+.card {
+    padding: 1.5rem 1.75rem;
 
-        background: var(--card);
-        color: var(--text-title);
+    background: var(--card);
+    color: var(--text-title);
 
-        border-radius: 0.25rem;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    @media (max-width: 768px) {
+        flex: 0 0 auto;
+        min-width: 240px;
+        padding: 1.5rem;
+    }
 
-        strong {
-            display: block;
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
 
-            font-size: 2rem;
-            font-weight: 400;
-            line-height: 3rem;
-        }
-
-        small {
+        p {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
             color: var(--text-body);
-            font-size: 0.9rem;
-
-            em {
-                margin-left: 3px;
-            }
-        }
-
-        &:last-child {
-            background: var(--gray);
-            color: var(--card);
         }
     }
+
+    strong {
+        display: block;
+
+        font-family: 'Lexend', sans-serif;
+        font-size: 1.75rem;
+        font-weight: 600;
+        line-height: 2.25rem;
+    }
+
+    .valueSkeleton {
+        display: block;
+        line-height: 1;
+    }
+
+    small {
+        display: block;
+        margin-top: 0.5rem;
+        color: var(--text-body);
+        font-size: 0.8rem;
+
+        em {
+            margin-left: 4px;
+            font-style: normal;
+            color: var(--text-title);
+        }
+    }
+}
+
+.iconBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+
+    svg {
+        font-size: 1.25rem;
+    }
+}
+
+.incomeBadge {
+    background: rgba(51, 204, 149, 0.12);
+    color: var(--green);
+}
+
+.outcomeBadge {
+    background: rgba(229, 46, 77, 0.1);
+    color: var(--red);
+}
+
+.totalCard {
+    background: linear-gradient(135deg, #585666 0%, #4a4858 100%);
+    color: var(--card);
+    border-radius: 1.25rem;
+
+    header p {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    strong {
+        color: var(--card);
+    }
+}
+
+.totalBadge {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.95);
 }
